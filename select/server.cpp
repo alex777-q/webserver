@@ -95,26 +95,26 @@ int main(int argc, char const *argv[])
                 }
             }
             else{
-            /* assume data-len sent from peer donot exceed 63 */
-            char recvbuf[64];
-            int clifds_len = clifds.size();
-            for(int i = 0; i < clifds_len; i++){
-                if(clifds[i] != -1 && FD_ISSET(clifds[i], &readset)){
-                    memset(recvbuf, 0, sizeof(recvbuf));
-                    /* not listen socket, just recv data */
-                    int len = recv(clifds[i], recvbuf, 64, 0);
-                    if(len <= 0 && errno != EINTR){
-                        /* recv error */
-                        std::cout << "recb data error, clifd: " <<clifds[i] << std::endl;
-                        close(clifds[i]);
-                        /* not delete index, set index-pos to -1 */
-                        clifds[i] = INVALID_FD;
-                        continue;
-                    }
+                /* assume data-len sent from peer donot exceed 63 */
+                char recvbuf[64];
+                int clifds_len = clifds.size();
+                for(int i = 0; i < clifds_len; i++){
+                    if(clifds[i] != -1 && FD_ISSET(clifds[i], &readset)){
+                        memset(recvbuf, 0, sizeof(recvbuf));
+                        /* not listen socket, just recv data */
+                        int len = recv(clifds[i], recvbuf, 64, 0);
+                        if(len <= 0 && errno != EINTR){
+                            /* recv error */
+                            std::cout << "recb data error, clifd: " <<clifds[i] << std::endl;
+                            close(clifds[i]);
+                            /* not delete index, set index-pos to -1 */
+                            clifds[i] = INVALID_FD;
+                            continue;
+                        }
 
-                    std::cout << "clifd: "<< clifds[i] << ", recv data: "<< recvbuf << std::endl;
+                        std::cout << "clifd: "<< clifds[i] << ", recv data: "<< recvbuf << std::endl;
+                    }
                 }
-            }
             }
         
         }
