@@ -15,15 +15,12 @@ class Person{
                          cout << "my age is " << this->m_age << endl;
                  }
 };
- 
 int main(){
-        Person p1("lls",23);
+         Person p1("lls",23);
          Person p2("chp",21);
          p1.getName();
          p1.getAge();
-        p2.getName();
+         p2.getName();
          p2.getAge();
- 
          return 0;
- 
- } 
+} 
